@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<head>
+  <title>CS 725 Visual Implementation 5</title>
+  <meta charset="utf-8">
+
+  <script src="https://d3js.org/d3.v3.min.js"></script>
+  <script src="https://vega.github.io/vega/vega.js"></script>
+  <script src="https://vega.github.io/vega-lite/vega-lite.js"></script>
+  <script src="https://vega.github.io/vega-editor/vendor/vega-embed.js"></script>
+
+
+  <style media="screen">
+    /* Add space between vega-embed links  */
+    .vega-actions a {
+      margin-right: 5px;
+    }
+
+        body{
+            background-color:#e6e6e6;
+            color:black;
+            margin: 30px;
+            padding: 30px;
+            text-align: left;
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+            width: 1150px;
+            height: 2000px;
+            position: relative;
+            }
+
+        div {
+            background-color:#ffffff;
+            margin: 10px;
+            padding: 10px;
+            }
+  </style>
+
+
+
+</head>
+<body>
+  <h1 style="text-align: center">CS725 - Visual Implementation 5</h1>
+  <pre><b>
+  Below Visual Implementations are made using Vega-Lite.js library.
+ 
+  1. Vertical Bar Chart
+  2. Horizontal Bar Chart
+  3. Line chart
+  4. Scatter Plot
+  5. Stacked Bar Chart
+  6. Heat Map
+  7. Scatterplot Matrix
+  
+  The reason for choosing this library is to get some familiarity, since I have not tried visualizations using this library earlier.</b>
+  </pre>
+  
+
+
+  <!-- Container for the visualization -->
+  <div>
+  <h3 style="text-align: center">Vertical Bar Chart</h3>
+  <div style="text-align: center" id="vb_chart"></div>
+  </div>
+
+  <div>
+  <h3 style="text-align: center">Horizontal Bar Chart</h3>
+  <div style="text-align: center" id="hb_chart"></div>
+  </div>
+
+  <div>
+  <h3 style="text-align: center">Line chart</h3>
+  <div style="text-align: center" id="line_chart"></div>
+  </div>
+
+  <div>
+  <h3 style="text-align: center">Scatter Plot</h3>
+  <div style="text-align: center" id="scatter_plot"></div>
+  <div style="text-align: center" id="scatter_plot"></div>
+  </div>
+
+  <div>
+  <h3 style="text-align: center">Stacked Bar Chart</h3>
+    <div style="text-align: center" id="sb_chart"></div>
+  </div>
+
+  <div>
+  <h3 style="text-align: center">Heat Map</h3>
+  <div style="text-align: center" id="heat_map"></div>   
+  </div>
+
+  <div style="margin: 0px; padding: 0px;">
+  <br>
+  <h3 style="text-align: center">Scatterplot Matrix</h3>
+  <div style="margin: 0px; padding: 0px;" id="spm_chart"></div>
+  <br>
+  </div>  
+  
+
+  <script>
+
+
+// Stacked Bar Chart
+
+var stack_bar = {
+  "data": {"url": "data/seattle-weather.csv","format": {"type": "csv"}},
+  "mark": "bar",
+  "encoding": {
+    "x": {
+      "field": "date",
+      "type": "temporal",
+      "timeUnit": "month",
+      "axis": {"title": "Month of the year"}
+    },
+    "y": {
+      "field": "*",
+      "type": "quantitative",
+      "aggregate": "count"
+    },
+    "color": {
+      "field": "weather",
+      "type": "nominal",
+      "scale": {
+        "domain": ["sun","fog","drizzle","rain","snow"],
+        "range": ["#ffcc00","#b3ffd9","#b3f0ff","#008fb3","#003d4d"]
+      },
+      "legend": {
+        "title": "Weather type"
+      }
+    }
+  }
+};
+
+var sb_embed_spec = {
+  mode: "vega-lite",
+  spec: stack_bar
+};
+
+vg.embed("#sb_chart", sb_embed_spec, function(error, result) {});
+
+// Vertical Bar Chart
+
+var vertical_bar = {
+  "data": {"url": "data/seattle-weather.csv"},
+  "mark": "bar",
+  "encoding": {
+    "x": {
+      "bin": true,
+      "field": "wind",
+      "type": "quantitative",
+      "axis": {"title": "Wind Speed"}
+      },
+    "y": {
+      "aggregate": "count",
+      "field": "*",
+      "type": "quantitative"
+    }
+  }
+};
+
+var vb_embed_spec = {
+  mode: "vega-lite",
+  spec: vertical_bar
+};
+
+vg.embed("#vb_chart", vb_embed_spec, function(error, result) {});
+
+// Horizontal Bar Chart
+
+  var horizontal_bar = {
+  "data": {"url": "data/seattle-weather.csv"},
+  "mark": "bar",
+  "encoding": {
+    "y": {
+      "bin": true,
+      "field": "temp_max",
+      "type": "quantitative",
+      "axis": {"title": "Maximum Temperature"}
+      },
+    "x": {
+      "aggregate": "count",
+      "field": "*",
+      "type": "quantitative",
+
+    }
+  }
+};
+
+  var hb_embed_spec = {
+                   mode: "vega-lite",
+                   spec: horizontal_bar
+                  };
+
+  vg.embed("#hb_chart", hb_embed_spec, function(error, result) {});
+
+// Line Chart
+
+var line_chart = {
+  "data": {"url": "data/seattle-weather.csv"},
+  "mark": "line",
+  "encoding": {
+    "x": {
+      "timeUnit": "month",
+      "field": "date",
+      "type": "temporal"
+    },
+    "y": {
+      "aggregate": "mean",
+      "field": "temp_max",
+      "type": "quantitative"
+    }
+  }
+};
+
+  var line_embed_spec = {
+                   mode: "vega-lite",
+                   spec: line_chart
+                  };
+
+  vg.embed("#line_chart", line_embed_spec, function(error, result) {});
+
+
+// Scatter Plot Chart
+
+scatter_plot = {
+  "data": {"url": "data/seattle-weather.csv"},
+  "mark": "point",
+  "encoding": {
+    "x": {
+      "timeUnit": "month",
+      "field": "date",  
+      "type": "temporal"
+         },
+    "y": {
+      "aggregate": "average",
+      "field": "temp_max",
+      "type": "quantitative"
+         }
+  }
+};
+
+ var scatter_plot_spec = {
+                    mode: "vega-lite",
+                    spec: scatter_plot                  
+ };
+
+ vg.embed("#scatter_plot", scatter_plot_spec, function(error, result) {});
+
+// heat maps
+
+heat_map = {
+  "data": {"url": "data/seattle-weather.csv"},
+  "mark": "bar",
+  "encoding": {
+    "x": {
+      "bin": {"maxbins": 10},
+      "field": "temp_max",
+      "type": "quantitative"
+    },
+    "y": {
+      "bin": {"maxbins": 10},
+      "field": "precipitation",
+      "type": "quantitative"
+    },
+    "color": {
+      "aggregate": "count",
+      "field": "*", 
+      "type": "quantitative"
+    }
+  }
+}
+
+  var heat_map_spec = {
+                   mode: "vega-lite",
+                   spec: heat_map
+                  };
+
+  vg.embed("#heat_map", heat_map_spec, function(error, result) {});
+
+// scatter plot matrix map 
+
+scatter_plot_matrix_map = {
+  "data": {"url": "data/seattle-weather.csv"},
+  "mark": "point",
+  "encoding": {
+    "column": {
+               "field": "weather",
+               "type": "ordinal"
+              },
+    "x": {
+              // "timeUnit": "month",
+               "field": "temp_max",
+               "type": "quantitative"
+         },
+    "y": {
+               "field": "wind",
+               "type": "quantitative"
+         }
+  }
+}
+
+  var scatter_plot_matrix_spec = {
+                   mode: "vega-lite",
+                   spec: scatter_plot_matrix_map
+                  };
+
+  vg.embed("#spm_chart", scatter_plot_matrix_spec, function(error, result) {});
+
+
+
+</script>
+</body>
+</html>

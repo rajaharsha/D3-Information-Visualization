@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <link href="build/nv.d3.css" rel="stylesheet" type="text/css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.2/d3.min.js" charset="utf-8"></script>
+    <script src="build/nv.d3.js"></script>
+
+    <style>
+        text {
+            font: 12px sans-serif;
+        }
+        svg {
+            display: block;
+        }
+        html, body, #chart1, svg {
+            margin: 0px;
+            padding:0px;
+            height: 1000px;
+            width:  3000px;
+        }	
+
+        html, body, #chart2, svg {
+            margin: 0px;
+            padding:0px;
+            height: 1000px;
+            width:  3000px;
+        }	
+		</style>
+</head>
+<body>
+
+
+<h1 style="text-align: center">  CS725-VI4 Assignment - NVD3 </h1>
+
+<br>
+<h2 style="text-align: center">Number of Journals for each Publisher</h2>
+<br>
+<h5 style="color:red">Number of Journals</h5>
+
+<div id="chart1">
+    <svg></svg>
+</div>
+<h4 style="text-align: center; color:red;">Publisher Name</h4>
+<br>
+<h2 style="text-align: center">Average Cost of an Article for each Publisher</h2>
+<br>
+<h5 style="color:red">Average Cost</h5>
+<div id="chart2">
+    <svg></svg>
+</div>
+<h4 style="text-align: center; color:red;">Publisher Name</h4>
+
+
+
+
+	<script type="text/javascript" src="vi2-data-journals-JSON.json"></script>
+	
+	<script>
+					 	
+		var size=test.vi2_data.length;
+		var pub=[];
+		
+		for (p=0;p<size;p++){ 		
+								pub.push(test.vi2_data[p].Publisher);
+		};		
+		
+		var unique_pub = [];
+
+		for(var i in pub){
+						     if(unique_pub.indexOf(pub[i]) === -1){
+							 unique_pub.push(pub[i]);}
+		};
+		
+		
+		var rep_1 = [];
+
+		total_cnt = 0;
+		pvsj_main = [];
+		pvsc_main = [];
+		
+		for(var u in unique_pub){
+				cnt = 0;
+				cost = 0;
+				for(var j in test.vi2_data){												
+											   if (test.vi2_data[j].Publisher===unique_pub[u]){cnt = cnt + 1;
+																							   J_COST = parseFloat(test.vi2_data[j].COST);
+																							   cost = cost + J_COST;} 							
+				}											
+				
+				var element = {};
+				total_cnt = cnt;				
+				element.Publisher = unique_pub[u];
+				element.Count = total_cnt;
+				element.Average_Cost = cost/total_cnt;
+				rep_1.push(element);
+
+				Publisher_Name = unique_pub[u];
+				Average_Cost = cost/total_cnt;
+
+				
+				var pvsj = {};
+				pvsj.label=Publisher_Name;
+				pvsj.value=total_cnt;
+				pvsj_main.push(pvsj);
+				
+				var pvsc = {};
+				pvsc.label=Publisher_Name;
+				pvsc.value=Average_Cost;
+				pvsc_main.push(pvsc);				
+
+															
+		};
+		
+	  
+				var pvsj_obj = {};
+				pvsj_obj.key = "Cumulative Return";
+				pvsj_obj.values = pvsj_main;
+				
+				
+				var historicalBarChart = [];
+				historicalBarChart.push(pvsj_obj);
+				
+				var pvsc_obj = {};
+				pvsc_obj.key = "Cumulative Return";
+				pvsc_obj.values = pvsc_main;
+				
+				
+				var historicalBarChart_1 = [];
+				historicalBarChart_1.push(pvsc_obj);				
+
+				
+				console.log(historicalBarChart);
+							
+	</script>
+
+<script>
+
+    nv.addGraph(function() {
+        var chart = nv.models.discreteBarChart()
+            .x(function(d) { return d.label })
+            .y(function(d) { return d.value })
+			.staggerLabels(false)
+            .showValues(false)
+            .duration(250)
+            ;
+
+		chart.rotateLabels(-45);
+		chart.margin({"left":70,"right":30,"top":20,"bottom":300});			
+
+        d3.select('#chart1 svg')
+            .datum(historicalBarChart)
+            .call(chart);
+
+        nv.utils.windowResize(chart.update);
+        return chart;
+    });
+
+
+</script>
+
+<>
+
+<script>
+
+    nv.addGraph(function() {
+        var chart = nv.models.discreteBarChart()
+            .x(function(d) { return d.label })
+            .y(function(d) { return d.value })
+            .staggerLabels(false)
+            .showValues(false)
+            .duration(250)
+            ;
+
+		chart.rotateLabels(-45);
+		chart.margin({"left":70,"right":30,"top":20,"bottom":300});
+		
+        d3.select('#chart2 svg')
+            .datum(historicalBarChart_1)
+            .call(chart);
+
+        nv.utils.windowResize(chart.update);
+        return chart;
+    });
+
+
+</script>
+
+
+</body>
+</html>

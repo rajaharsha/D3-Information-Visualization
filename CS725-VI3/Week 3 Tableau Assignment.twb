@@ -1,0 +1,219 @@
+<?xml version='1.0' encoding='utf-8' ?>
+
+<!-- build 10100.16.1223.0056                               -->
+<workbook source-build='10.1.3 (10100.16.1223.0056)' source-platform='win' version='10.1' xmlns:user='http://www.tableausoftware.com/xml/user'>
+  <preferences>
+    <preference name='ui.encoding.shelf.height' value='24' />
+    <preference name='ui.shelf.height' value='26' />
+  </preferences>
+  <datasources>
+    <datasource caption='Sheet1 (Tableau Source)' inline='true' name='federated.11sw72b0qqy3mn12pr39o0p2z5qr' version='10.1'>
+      <connection class='federated'>
+        <named-connections>
+          <named-connection caption='Tableau Source' name='excel-direct.13e4vca1ub5q6g193fuuq00rtvj9'>
+            <connection class='excel-direct' cleaning='no' compat='no' dataRefreshTime='' filename='C:\Users\Raja Harsha\Documents\Information Visualization\W3\Tableau Source.xlsx' interpretationMode='0' password='' server='' validate='no' />
+          </named-connection>
+        </named-connections>
+        <relation connection='excel-direct.13e4vca1ub5q6g193fuuq00rtvj9' name='Sheet1' table='[Sheet1$]' type='table'>
+          <columns gridOrigin='A1:B26:no:A1:B26:0' header='yes' outcome='2'>
+            <column datatype='integer' name='Sequence' ordinal='0' />
+            <column datatype='integer' name='Sample_Data' ordinal='1' />
+          </columns>
+        </relation>
+        <metadata-records>
+          <metadata-record class='column'>
+            <remote-name>Sequence</remote-name>
+            <remote-type>20</remote-type>
+            <local-name>[Sequence]</local-name>
+            <parent-name>[Sheet1]</parent-name>
+            <remote-alias>Sequence</remote-alias>
+            <ordinal>0</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;I8&quot;</attribute>
+            </attributes>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>Sample_Data</remote-name>
+            <remote-type>20</remote-type>
+            <local-name>[Sample_Data]</local-name>
+            <parent-name>[Sheet1]</parent-name>
+            <remote-alias>Sample_Data</remote-alias>
+            <ordinal>1</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;I8&quot;</attribute>
+            </attributes>
+          </metadata-record>
+          <metadata-record class='capability'>
+            <remote-name />
+            <remote-type>0</remote-type>
+            <parent-name>[Sheet1]</parent-name>
+            <remote-alias />
+            <aggregation>Count</aggregation>
+            <contains-null>true</contains-null>
+            <attributes>
+              <attribute datatype='integer' name='context'>0</attribute>
+              <attribute datatype='string' name='gridOrigin'>&quot;A1:B26:no:A1:B26:0&quot;</attribute>
+              <attribute datatype='boolean' name='header'>true</attribute>
+              <attribute datatype='integer' name='outcome'>2</attribute>
+            </attributes>
+          </metadata-record>
+        </metadata-records>
+      </connection>
+      <aliases enabled='yes' />
+      <column datatype='integer' name='[Number of Records]' role='measure' type='quantitative' user:auto-column='numrec'>
+        <calculation class='tableau' formula='1' />
+      </column>
+      <column caption='Sample Data' datatype='integer' name='[Sample_Data]' role='measure' type='quantitative' />
+      <column aggregation='Sum' datatype='integer' name='[Sequence]' role='dimension' type='ordinal' />
+      <layout dim-ordering='alphabetic' dim-percentage='0.429062' measure-ordering='alphabetic' measure-percentage='0.570938' show-structure='true' />
+      <semantic-values>
+        <semantic-value key='[Country].[Name]' value='&quot;United States&quot;' />
+      </semantic-values>
+    </datasource>
+  </datasources>
+  <worksheets>
+    <worksheet name='Week 3 Assignment: Bar Plot Using Tableau'>
+      <table>
+        <view>
+          <datasources>
+            <datasource caption='Sheet1 (Tableau Source)' name='federated.11sw72b0qqy3mn12pr39o0p2z5qr' />
+          </datasources>
+          <datasource-dependencies datasource='federated.11sw72b0qqy3mn12pr39o0p2z5qr'>
+            <column caption='Sample Data' datatype='integer' name='[Sample_Data]' role='measure' type='quantitative' />
+            <column aggregation='Sum' datatype='integer' name='[Sequence]' role='dimension' type='ordinal' />
+            <column-instance column='[Sequence]' derivation='None' name='[none:Sequence:ok]' pivot='key' type='ordinal' />
+            <column-instance column='[Sample_Data]' derivation='Sum' name='[sum:Sample_Data:qk]' pivot='key' type='quantitative' />
+          </datasource-dependencies>
+          <aggregation value='true' />
+        </view>
+        <style />
+        <panes>
+          <pane>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Automatic' />
+            <style>
+              <style-rule element='mark'>
+                <format attr='mark-color' value='#499894' />
+              </style-rule>
+            </style>
+          </pane>
+        </panes>
+        <rows>[federated.11sw72b0qqy3mn12pr39o0p2z5qr].[sum:Sample_Data:qk]</rows>
+        <cols>[federated.11sw72b0qqy3mn12pr39o0p2z5qr].[none:Sequence:ok]</cols>
+      </table>
+    </worksheet>
+  </worksheets>
+  <windows saved-dpi-scale-factor='2' source-height='59'>
+    <window class='worksheet' maximized='true' name='Week 3 Assignment: Bar Plot Using Tableau'>
+      <cards>
+        <edge name='left'>
+          <strip size='160'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+          </strip>
+        </edge>
+        <edge name='top'>
+          <strip size='2147483647'>
+            <card type='columns' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='rows' />
+          </strip>
+          <strip size='31'>
+            <card type='title' />
+          </strip>
+        </edge>
+      </cards>
+    </window>
+  </windows>
+  <thumbnails>
+    <thumbnail height='192' name='Week 3 Assignment: Bar Plot Using Tableau' width='192'>
+      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
+      rKQGgJUAAAAASUVORK5CYII=
+    </thumbnail>
+  </thumbnails>
+</workbook>

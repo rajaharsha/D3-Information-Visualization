@@ -1,0 +1,19 @@
+---
+title: "Week 3 R Assignment"
+author: "Raja Harsha Chinta"
+date: "January 30, 2017"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+# Declaring Sample dataset with bar plot values.
+sample <- c(20,15,10,20,3,2,4,9,25,8,5,26,15,2,13,12,18,16,18,20,10,21,6,22,4)
+
+# Calling the barplot() function with graph specifications like Title, Color and Border Color.
+barplot(sample,main="Sample Bar Plot using R", col="cyan4", border = "cyan4")
+```
+

@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <link href="d3/nv.d3.css" rel="stylesheet" type="text/css">
+    <script src="d3/d3.v3.js" charset="utf-8"></script>
+    <script src="d3/nv.d3.js"></script>
+
+    <style>
+        text {
+            font: 12px sans-serif;
+        }
+        svg {
+            display: block;
+        }
+        html, body, #barplot, svg {
+            margin: 0px;
+            padding: 0px;
+            height: 100%;
+            width: 100%;
+        }
+		h1{
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Bar Plot using NVD3 .js Library</h1>
+
+<div id="barplot">
+    <svg></svg>
+</div>
+
+<script>
+
+    sample_data = [
+        {
+            key: "Cumulative Return",
+            values: [
+   					 {
+						"label" : "1" ,
+						"value" : 20
+					 },
+					 {
+						"label" : "2" ,
+						"value" : 15
+					 },
+					 {
+						"label" : "3" ,
+						"value" : 10
+					 },									
+					 {
+					   "label": "4",
+					   "value": 20
+					 },
+					 {
+					   "label": "5",
+					   "value": 3
+					 },					 
+					 {
+					   "label": "6",
+					   "value": 2
+					 },
+					 {
+					   "label": "7",
+					   "value": 4
+					 },
+					 {
+					   "label": "8",
+					   "value": 9
+					 },
+					 {
+					   "label": "9",
+					   "value": 25
+					 },
+					 {
+					   "label": "10",
+					   "value": 8
+					 },
+					 {
+					   "label": "11",
+					   "value": 5
+					 },
+					 {
+					   "label": "12",
+					   "value": 26
+					 },
+					 {
+					   "label": "13",
+					   "value": 15
+					 },
+					 {
+					   "label": "14",
+					   "value": 2
+					 },
+					 {
+					   "label": "15",
+					   "value": 13
+					 },
+					 {
+					   "label": "16",
+					   "value": 12
+					 },
+					 {
+					   "label": "17",
+					   "value": 18
+					 },
+					 {
+					   "label": "18",
+					   "value": 16
+					 },
+					 {
+					   "label": "19",
+					   "value": 18
+					 },
+					 {
+					   "label": "20",
+					   "value": 20
+					 },
+					 {
+					   "label": "21",
+					   "value": 10
+					 },
+					 {
+					   "label": "22",
+					   "value": 21
+					 },
+					 {
+					   "label": "23",
+					   "value": 6
+					 },
+					 {
+					   "label": "24",
+					   "value": 22
+					 },
+					 {
+					   "label": "25",
+					   "value": 4
+					 }
+                    ]
+        }
+    ];
+
+    nv.addGraph(function() {
+        var chart = nv.models.discreteBarChart()
+            .x(function(d) { return d.label })
+            .y(function(d) { return d.value })
+            .staggerLabels(true)
+            .showValues(true)
+            .duration(250)
+            ;
+
+        d3.select('#barplot svg')
+            .datum(sample_data)
+            .call(chart);
+
+        nv.utils.windowResize(chart.update);
+        return chart;
+    });
+
+
+</script>
+</body>
+</html>
